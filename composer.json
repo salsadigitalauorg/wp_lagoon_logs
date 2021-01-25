@@ -1,0 +1,24 @@
+{
+  "name": "wp_lagoon_logs/wp_lagoon_logs",
+  "description": "Lagoon logs plugin.",
+  "type": "wordpress-plugin",
+  "keywords": [
+    "wordpress",
+    "lagoon"
+  ],
+  "license": "GPL-2.0+",
+  "authors": [
+    {
+      "name": "Govind Maloo"
+    }
+  ],
+  "require" : {
+    "php" : ">=5.4.0",
+    "inpsyde/wonolog": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "wp_lagoon_logs\\lagoon_logs\\": "src"
+    }
+  }
+}
