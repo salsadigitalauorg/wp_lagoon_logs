@@ -1,6 +1,6 @@
 {
   "name": "wp_lagoon_logs/wp_lagoon_logs",
-  "description": "Lagoon logs plugin.",
+  "description": "Lagoon logs Wordpress plugin.",
   "type": "wordpress-plugin",
   "keywords": [
     "wordpress",
@@ -9,7 +9,13 @@
   "license": "GPL-2.0+",
   "authors": [
     {
-      "name": "Govind Maloo"
+      "name": "SalsaDigital (salsa.digital)",
+      "homepage": "https://salsa.digital",
+      "role": "Maintainer"
+    },
+    {
+      "name": "Govind Maloo",
+      "role": "Developer"
     }
   ],
   "require" : {
