@@ -6,6 +6,9 @@ This module aims to be as close to a zero-configuration logging system for WP si
 
 Installation should in WP MU space download and store in mu-plugins folder.
 
+Alternatively, install with composer:
+`composer require wp_lagoon_logs/wp_lagoon_logs`
+
 It's installed by adding the following code in load.php file
 ```
 if (file_exists(WPMU_PLUGIN_DIR.'/wp_lagoon_logs/wp_lagoon_logs.php')) {
