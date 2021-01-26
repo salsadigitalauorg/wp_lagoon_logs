@@ -8,10 +8,13 @@
  * License: GPL2
  */
 
-defined('ABSPATH') or die('Hey, what are you doing here? You silly human!');
+defined('ABSPATH') or die('ABSPATH is not defined');
 
 // Require autoload file.
-if (file_exists(dirname( __FILE__ ) . '/vendor/autoload.php')) {
+if (file_exists('/app/vendor/autoload.php')) {
+  require_once '/app/vendor/autoload.php';
+}
+elseif (file_exists(dirname( __FILE__ ) . '/vendor/autoload.php')) {
   require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
 
@@ -20,6 +23,7 @@ use wp_lagoon_logs\lagoon_logs\LagoonHandler;
 use Inpsyde\Wonolog;
 
 if (!defined( 'Inpsyde\Wonolog\LOG')) {
+  error_log('Inpsyde\Wonolog\LOG is not defined in WP Lagoon logs plugin', 0);
   return;
 }
 
@@ -48,7 +52,7 @@ if (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') !== '
   $handler->initHandler();
 }
 else {
-  //Start Wonolog
+  // Start Wonolog.
   Wonolog\bootstrap();
 }
 
