@@ -1,7 +1,7 @@
 {
   "name": "wp_lagoon_logs/wp_lagoon_logs",
   "description": "Lagoon logs Wordpress plugin.",
-  "type": "wordpress-plugin",
+  "type": "wordpress-muplugin",
   "keywords": [
     "wordpress",
     "lagoon"
