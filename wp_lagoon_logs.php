@@ -40,7 +40,7 @@ function wp_lagoon_logs_default_settings() {
   $default = [
     'll_settings_logs_host' => 'application-logs.lagoon.svc',
     'll_settings_logs_port' => 5140,
-    'll_settings_logs_identifier' => 'wordpress',
+    'll_settings_logs_identifier' => 'drupal',
   ];
   update_option('wp_ll_settings', $default);
 }
