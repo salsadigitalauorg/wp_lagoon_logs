@@ -37,7 +37,8 @@ class LagoonHandler {
     //make sure to set your URL and port here
     $lagoonSocket = new SyslogUdpHandler($this->hostName, $this->hostPort, LOG_USER, Logger::DEBUG, TRUE, self::LAGOON_LOGS_DEFAULT_IDENTIFIER);
     $lagoonSocket->setFormatter($formatter);
-    Wonolog\bootstrap($lagoonSocket, Wonolog\USE_DEFAULT_PROCESSOR)
+    Wonolog\bootstrap($lagoonSocket)
+      ->use_default_processor()
       ->log_php_errors()
       ->use_default_hook_listeners();
   }
