@@ -15,6 +15,8 @@ class LagoonHandler {
 
   const LAGOON_LOGS_DEFAULT_LAGOON_PROJECT = 'project_unset';
 
+  const LAGOON_LOGS_DEFAULT_CHUNK_SIZE_BYTES = 15000; //will be used when new release of monolog is available
+
   protected $hostName;
 
   protected $hostPort;
@@ -34,10 +36,16 @@ class LagoonHandler {
    */
   public function initHandler() {
     $formatter = new LogstashFormatter($this->getHostProcessIndex(), null, null, 'ctxt_', 1);
-    //make sure to set your URL and port here
-    $lagoonSocket = new SyslogUdpHandler($this->hostName, $this->hostPort, LOG_USER, Logger::DEBUG, TRUE, self::LAGOON_LOGS_DEFAULT_IDENTIFIER);
-    $lagoonSocket->setFormatter($formatter);
-    Wonolog\bootstrap($lagoonSocket)
+
+    // Create socket handler.
+    $connectionString = sprintf("udp://%s:%s", $this->hostName, $this->hostPort);
+    $udpHandler = new SocketHandler($connectionString);
+
+    // Monolog has a change waiting for release that allows us to have large UDP packets.
+    $udpHandler->setChunkSize(self::LAGOON_LOGS_DEFAULT_CHUNK_SIZE_BYTES);
+    $udpHandler->setFormatter($formatter);
+
+    Wonolog\bootstrap($udpHandler)
       ->use_default_processor()
       ->log_php_errors()
       ->use_default_hook_listeners();
