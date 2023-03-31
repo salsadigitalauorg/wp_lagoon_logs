@@ -14,6 +14,8 @@
  * file distributed with this module
  */
 
+declare(strict_types=1);
+
 namespace wp_lagoon_logs\lagoon_logs;
 
 use Monolog\Logger;
@@ -57,9 +59,9 @@ class SocketHandler extends AbstractProcessingHandler {
    *   the stack or not
    */
   public function __construct(
-    $connectionString,
-    $level = Logger::DEBUG,
-    $bubble = TRUE
+    string $connectionString,
+    int $level = Logger::DEBUG,
+    bool $bubble = true
   ) {
     parent::__construct($level, $bubble);
     $this->connectionString = $connectionString;
@@ -81,8 +83,8 @@ class SocketHandler extends AbstractProcessingHandler {
   }
 
   /**
-   * We will not close a PersistentSocket instance so it can be reused in other
-   * requests.
+   * We will not close a PersistentSocket instance so it can be reused in
+   * other requests.
    */
   public function close() {
     if (!$this->isPersistent()) {
@@ -106,7 +108,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @param bool $persistent
    */
-  public function setPersistent($persistent) {
+  public function setPersistent(bool $persistent): void {
     $this->persistent = (bool) $persistent;
   }
 
@@ -117,7 +119,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @see http://php.net/manual/en/function.fsockopen.php
    */
-  public function setConnectionTimeout($seconds) {
+  public function setConnectionTimeout(float $seconds): void {
     $this->validateTimeout($seconds);
     $this->connectionTimeout = (float) $seconds;
   }
@@ -129,7 +131,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @see http://php.net/manual/en/function.stream-set-timeout.php
    */
-  public function setTimeout($seconds) {
+  public function setTimeout(float $seconds): void {
     $this->validateTimeout($seconds);
     $this->timeout = (float) $seconds;
   }
@@ -140,7 +142,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @param float $seconds 0 for no timeout
    */
-  public function setWritingTimeout($seconds) {
+  public function setWritingTimeout(float $seconds): void {
     $this->validateTimeout($seconds);
     $this->writingTimeout = (float) $seconds;
   }
@@ -150,7 +152,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @param float $bytes
    */
-  public function setChunkSize($bytes) {
+  public function setChunkSize(float $bytes): void {
     $this->chunkSize = $bytes;
   }
 
@@ -168,7 +170,7 @@ class SocketHandler extends AbstractProcessingHandler {
    *
    * @return bool
    */
-  public function isPersistent() {
+  public function isPersistent(): bool {
     return $this->persistent;
   }
 
@@ -328,7 +330,7 @@ class SocketHandler extends AbstractProcessingHandler {
     }
   }
 
-  private function writeToSocket($data) {
+  private function writeToSocket(string $data): void {
     $length = strlen($data);
     $sent = 0;
     $this->lastSentBytes = $sent;
@@ -357,7 +359,7 @@ class SocketHandler extends AbstractProcessingHandler {
     }
   }
 
-  private function writingIsTimedOut($sent) {
+  private function writingIsTimedOut(int $sent): bool {
     $writingTimeout = (int) floor($this->writingTimeout);
     if (0 === $writingTimeout) {
       return FALSE;

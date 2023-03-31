@@ -5,6 +5,7 @@ namespace wp_lagoon_logs\lagoon_logs;
 use Inpsyde\Wonolog;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Formatter\LogstashFormatter;
+use Monolog\Handler\SocketHandler;
 use Monolog\Logger;
 
 class LagoonHandler {
