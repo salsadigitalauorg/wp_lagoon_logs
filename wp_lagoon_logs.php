@@ -46,12 +46,14 @@ function wp_lagoon_logs_extension_init() {
   }
   wp_lagoon_logs_default_settings();
 }
-add_action('init', 'wp_lagoon_logs_extension_init');
+add_action('wp_loaded', 'wp_lagoon_logs_extension_init');
 
 if (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') !== 'local') {
   $options = get_option('wp_ll_settings');
-  $handler = new LagoonHandler($options['ll_settings_logs_host'], $options['ll_settings_logs_port'], $options['ll_settings_logs_identifier']);
-  $handler->initHandler();
+  if ($options && is_array($options)) {
+    $handler = new LagoonHandler($options['ll_settings_logs_host'], $options['ll_settings_logs_port'], $options['ll_settings_logs_identifier']);
+    $handler->initHandler();
+  }
 }
 else {
   // Start Wonolog.
