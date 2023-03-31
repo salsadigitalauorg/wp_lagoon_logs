@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name: WP lagoon logs
  * Description: Simple wonolog wrapper for Lagoon.
