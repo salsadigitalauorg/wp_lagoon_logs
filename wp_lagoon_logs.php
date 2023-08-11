@@ -49,9 +49,16 @@ function wp_lagoon_logs_extension_init() {
 add_action('init', 'wp_lagoon_logs_extension_init');
 
 if (getenv('LAGOON_ENVIRONMENT_TYPE') && getenv('LAGOON_ENVIRONMENT_TYPE') !== 'local') {
-  $options = get_option('wp_ll_settings');
-  $handler = new LagoonHandler($options['ll_settings_logs_host'], $options['ll_settings_logs_port'], $options['ll_settings_logs_identifier']);
-  $handler->initHandler();
+  $options = get_option('wp_ll_settings', []);
+
+  if (isset($options['ll_settings_logs_host'], $options['ll_settings_logs_port'], $options['ll_settings_logs_identifier'])) {
+    $handler = new LagoonHandler($options['ll_settings_logs_host'], $options['ll_settings_logs_port'], $options['ll_settings_logs_identifier']);
+    $handler->initHandler();
+  }
+  else {
+    // Option values are not set or are incomplete.
+    add_action('admin_notices', 'wp_ll_settings_admin_notice');
+  }
 }
 else {
   // Start Wonolog.
@@ -61,4 +68,12 @@ else {
 // Settings page is accessible to admin user.
 if (is_admin()) {
   $wp_ll_settings_page = new LagoonLogsSettings();
+}
+
+function wp_ll_settings_admin_notice() {
+  ?>
+  <div class="notice notice-warning">
+    <p><?php _e('Warning: WP Lagoon Logs settings are incomplete. Please ensure that all required settings are configured.', 'text-domain'); ?></p>
+  </div>
+  <?php
 }
