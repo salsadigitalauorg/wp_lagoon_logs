@@ -3,7 +3,7 @@
 /**
  * Plugin Name: WP lagoon logs
  * Description: Simple wonolog wrapper for Lagoon.
- * Version: 0.5
+ * Version: 0.6
  * Authors: Govind Maloo, Ivan Grynenko
  * Author URI: http://drupal.org/u/govind.maloo
  * License: GPL2
