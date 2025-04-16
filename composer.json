@@ -19,8 +19,8 @@
     }
   ],
   "require" : {
-    "php" : ">=7.4.0",
-    "inpsyde/wonolog": "^2.x-dev"
+    "php" : ">=8.2",
+    "inpsyde/wonolog": "^1.0"
   },
   "autoload": {
     "psr-4": {
